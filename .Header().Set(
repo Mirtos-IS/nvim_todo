@@ -3,7 +3,6 @@ package main
 import (
 	"encoding/json"
 	"fmt"
-	"io"
 	"log"
 	"net/http"
 	"nvim_todo/model"
@@ -18,17 +17,9 @@ func handleTodo(w http.ResponseWriter, r *http.Request) {
 }
 
 func handleUpdateTodo(w http.ResponseWriter, r *http.Request) {
-    var items []model.TodoItems
-    b, err := io.ReadAll(r.Body)
-    if err != nil {
-        panic(err)
-    }
-    json.Unmarshal(b, &items)
-    err = model.UpdateTodoItems(items)
-    if err != nil {
-        fmt.Println("something went wrong")
-        fmt.Println(err)
-    }
+    var body []byte
+    fmt.Println(r.GetBody())
+    fmt.Println(body)
 }
 
 func main() {
